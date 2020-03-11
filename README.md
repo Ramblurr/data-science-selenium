@@ -1,4 +1,4 @@
-![Build and Publish](https://github.com/alext234/data-science-selenium/workflows/Build%20and%20Publish/badge.svg?branch=master)
+![Build and Publish](https://github.com/ramblurr/data-science-selenium/workflows/Publish/badge.svg?branch=master)
 
 This repo builds a docker image that has Python3, Jupyter notebooks and related libraries. It also has Selenium, Chrome, and Firefox browers which are useful for web scraping.
 
@@ -8,7 +8,7 @@ This repo builds a docker image that has Python3, Jupyter notebooks and related 
 The built docker image is avaible at Dockerhub
 
 ```
-alext234/datascience:latest
+ramblurr/datascience:latest
 ```
 
 
@@ -20,7 +20,7 @@ Below are some sample usage.
 Enter the container's shell
 
 ```
-docker run  -p 8888:8888 -it -v $PWD:/stats -w /stats alext234/datascience:latest  bash 
+docker run  -p 8888:8888 -it -v $PWD:/stats -w /stats ramblurr/datascience:latest  bash 
 ```
 
 Start Jupyter notebook 
