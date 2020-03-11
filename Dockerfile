@@ -46,4 +46,6 @@ RUN python -m nltk.downloader all
 
 EXPOSE 8888
 
+RUN fix-permissions $HOME
 USER $NB_UID
+WORKDIR $HOME
