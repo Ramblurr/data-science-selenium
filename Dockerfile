@@ -41,7 +41,7 @@ RUN set -e; \
     tar Jxf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
     cp -r wkhtmltox/bin/* /usr/bin/ ; cp -r wkhtmltox/lib/* /usr/lib/ ; \
     cp -r wkhtmltox/include/* /usr/include/ ; \
-    rm -rf ./wkhtml* ;
+    rm -rf ./wkhtml* /tmp/* ;
 
 # pip requirements.txt
 COPY requirements.txt /tmp/requirements.txt
