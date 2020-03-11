@@ -24,11 +24,8 @@ RUN wget -q https://chromedriver.storage.googleapis.com/${CHROME_VER}/chromedriv
 #  firefox gecko driver
 RUN wget -qO- https://github.com/mozilla/geckodriver/releases/download/${FIREFOX_VER}/geckodriver-${FIREFOX_VER}-linux64.tar.gz | tar -xvz -C /usr/bin
 
-# wkhtmltopdf
+# adobe fonts
 RUN set -e; \
-     wget https://downloads.wkhtmltopdf.org/0.12/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
-    tar Jxf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
-    cp -r wkhtmltox/bin/* /usr/bin/ ; cp -r wkhtmltox/lib/* /usr/lib/ ; cp -r wkhtmltox/include/* /usr/include/ && \
     mkdir -p /usr/share/fonts/otf ; \
     wget https://github.com/adobe-fonts/source-han-sans/raw/release/OTF/SourceHanSansJ.zip && \
     unzip SourceHanSansJ.zip ; mv SourceHanSansJ /usr/share/fonts/otf/ ; \
@@ -36,16 +33,23 @@ RUN set -e; \
     unzip SourceHanSansHWJ.zip ; mv SourceHanSansHWJ /usr/share/fonts/otf/ ; \
     wget https://github.com/adobe-fonts/source-han-sans/raw/release/SubsetOTF/SourceHanSansJP.zip && \
     unzip SourceHanSansJP.zip ; mv SourceHanSansJP /usr/share/fonts/otf/ ; \
-    rm -f SourceHanSans*; fc-cache j; rm -rf /wkhtml* ; 
+    rm -f SourceHanSans*; fc-cache j;
+
+# wkhtmltopdf
+RUN set -e; \
+    wget https://downloads.wkhtmltopdf.org/0.12/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
+    tar Jxf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
+    cp -r wkhtmltox/bin/* /usr/bin/ ; cp -r wkhtmltox/lib/* /usr/lib/ ; \
+    cp -r wkhtmltox/include/* /usr/include/ ; \
+    rm -rf ./wkhtml* ;
 
 # pip requirements.txt
 COPY requirements.txt /tmp/requirements.txt
 RUN python -m pip install -r /tmp/requirements.txt
-RUN python -m spacy download en_core_web_sm
-RUN python -m nltk.downloader all
-
-EXPOSE 8888
-
 RUN fix-permissions $HOME
 USER $NB_UID
 WORKDIR $HOME
+#RUN python -m spacy download en_core_web_sm
+#RUN python -m nltk.downloader all
+
+EXPOSE 8888
