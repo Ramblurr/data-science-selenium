@@ -46,10 +46,7 @@ RUN set -e; \
 # pip requirements.txt
 COPY requirements.txt /tmp/requirements.txt
 RUN python -m pip install -r /tmp/requirements.txt
-RUN fix-permissions $HOME
-USER $NB_UID
-WORKDIR $HOME
-#RUN python -m spacy download en_core_web_sm
-#RUN python -m nltk.downloader all
+# RUN python -m spacy download en_core_web_sm
+# RUN python -m nltk.downloader all
 
 EXPOSE 8888
